@@ -13,9 +13,8 @@ jobs:
     - name: Build and push Docker images
       uses: docker/build-push-action@v1.1.0
       with:
-        image: dmptrluke/dash
-        registry: docker.io
-        tag: latest
-        directory: /app
+        repository: dmptrluke/dash
+        tags: latest
+        path: /app
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
