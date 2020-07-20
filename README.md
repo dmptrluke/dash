@@ -14,6 +14,8 @@ services:
     restart: always
     environment:
       - TZ=Pacific/Auckland
+    ports:
+      - "8000:8000"
     volumes:
       - ./apps.json:/config/apps.json
 ```
