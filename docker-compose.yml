@@ -6,7 +6,7 @@ networks:
 
 services:
   web:
-    image: lukeroge/dash:latest
+    image: dmptrluke/dash:latest
     build:
       context: ./app
     networks:
