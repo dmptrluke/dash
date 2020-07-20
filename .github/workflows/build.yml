@@ -15,6 +15,6 @@ jobs:
       with:
         repository: dmptrluke/dash
         tags: latest
-        path: /app
+        path: ./app
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
