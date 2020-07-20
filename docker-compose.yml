@@ -1,0 +1,20 @@
+---
+version: "3.8"
+
+networks:
+  primary:
+
+services:
+  web:
+    image: lukeroge/dash:latest
+    build:
+      context: ./app
+    networks:
+      - primary
+    ports:
+      - 8000:8000
+    volumes:
+      - ./apps.json:/config/apps.json
+    environment:
+      TZ: Pacific/Auckland
+
