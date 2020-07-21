@@ -1,6 +1,4 @@
-# dash  ![Docker Pulls](https://img.shields.io/docker/pulls/dmptrluke/dash) ![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/dmptrluke/dash)
-A sweet and simple dashboard for home server usage. 
-
+# dash ![Docker Build](https://github.com/dmptrluke/dash/workflows/Docker%20Build/badge.svg?branch=master)  ![Docker Pulls](https://img.shields.io/docker/pulls/dmptrluke/dash?label=Docker%20Pulls&logo=docker&logoColor=white)
 
 Example `docker-compose.yml`
 ```yaml
@@ -49,8 +47,6 @@ Example `apps.json`
 ```
 
 This project was derived from [jeroenpardon/sui](https://github.com/jeroenpardon/sui).
-
-## 
 
 ## License
 
