@@ -7,17 +7,16 @@ RUN apt-get update && apt-get install -y --no-install-recommends curl && rm -rf 
 # add a user/group for our app to run under
 RUN groupadd -r abc -g 1005 && useradd --no-log-init -u 1000 -r -g abc abc
 
-# create folders, set work directory
-RUN mkdir /config
-RUN mkdir /code
+# set work directory, create config folder
 WORKDIR /code
+RUN mkdir /config
 
 # copy requirements file and install requirements
-COPY requirements.txt /code/
-RUN pip install --no-cache-dir -r /code/requirements.txt
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
 # copy the rest of app code
-COPY . /code/
+COPY . ./
 
 # drop permissions, nothing beyond this point needs root powers
 USER abc:abc
