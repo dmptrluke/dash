@@ -4,9 +4,9 @@ from datetime import datetime
 import uvicorn
 from starlette.applications import Starlette
 from starlette.config import Config
+from starlette.responses import PlainTextResponse
 from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
-from starlette.responses import PlainTextResponse
 
 config = Config('.env')
 APPS_FILE = config('APPS_FILE')
@@ -25,7 +25,6 @@ async def homepage(request):
     template = "index.html"
 
     user = request.headers.get('remote-user', None)
-    groups = request.headers.get('remote-groupa', None)
 
     now = datetime.now()
 
@@ -52,7 +51,6 @@ async def homepage(request):
         "apps": app_list,
         "user": user,
         "now": now
-
     }
     return templates.TemplateResponse(template, context)
 
