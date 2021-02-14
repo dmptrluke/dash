@@ -25,6 +25,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
+          context: ./app
           tags: dmptrluke/dash:latest
           cache-from: type=registry,ref=dmptrluke/dash:latest
           cache-to: type=inline
