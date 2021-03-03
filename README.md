@@ -1,6 +1,7 @@
-# dash ![Docker Build](https://github.com/dmptrluke/dash/workflows/Docker%20Build/badge.svg?branch=master)  ![Docker Pulls](https://img.shields.io/docker/pulls/dmptrluke/dash?label=Docker%20Pulls&logo=docker&logoColor=white)
+# dash
+A sweet and simple Docker dashboard for home server usage.
 
-Example `docker-compose.yml`
+To run `dash`, you can use the following `docker-compose.yml` file.
 ```yaml
 ---
 version: "3.8"
@@ -17,8 +18,8 @@ services:
     volumes:
       - ./apps.json:/config/apps.json
 ```
-
-Example `apps.json`
+## Configuration 
+`dash` is configured using a simple `apps.json` file. An example is included below. Modify the file, and mount it into your container as `/config/apps.json`.
 ```json
 {
   "Watch": [
