@@ -16,17 +16,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
-
       - name: Set Docker Metadata
         id: docker_meta
         uses: crazy-max/ghaction-docker-meta@v1
         with:
-          images: dmptrluke/dash
+          images: dmptrluke/dash, ghcr.io/dmptrluke/dash
           tag-semver: |
             {{version}}
             {{major}}.{{minor}}
+  
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
@@ -37,6 +37,14 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+          
+      - name: Login to GitHub Container Registry
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v1 
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.CR_PAT }}
 
       - name: Build and Push
         uses: docker/build-push-action@v2
@@ -46,5 +54,5 @@ jobs:
           context: ./app    
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
-          cache-from: type=registry,ref=dmptrluke/dash:latest
+          cache-from: type=registry,ref=ghcr.io/dmptrluke/dash:master
           cache-to: type=inline
