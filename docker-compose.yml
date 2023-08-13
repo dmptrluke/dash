@@ -1,16 +1,12 @@
 ---
 version: "3.8"
 
-networks:
-  primary:
-
 services:
   web:
     image: dmptrluke/dash:latest
     build:
       context: ./app
-    networks:
-      - primary
+      dockerfile: ./Dockerfile
     ports:
       - 8000:8000
     volumes:
