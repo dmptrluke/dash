@@ -3,7 +3,7 @@ version: "3.8"
 
 services:
   web:
-    image: dmptrluke/dash:latest
+    image: ghcr.io/dmptrluke/dash:latest
     build:
       context: ./app
       dockerfile: ./Dockerfile

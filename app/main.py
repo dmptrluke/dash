@@ -24,7 +24,7 @@ app.mount('/static', StaticFiles(directory='/code/static'), name='static')
 async def homepage(request):
     template = "index.html"
 
-    user = request.headers.get('remote-user', None)
+    user = request.headers.get('X-Authentik-Name', None)
 
     now = datetime.now()
 

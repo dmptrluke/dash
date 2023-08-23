@@ -8,7 +8,7 @@ version: "3.8"
 
 services:
   dash:
-    image: dmptrluke/dash:latest
+    image: ghcr.io/dmptrluke/dash:latest
     container_name: dash
     restart: always
     environment:
