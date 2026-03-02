@@ -4,8 +4,6 @@ A sweet and simple Docker dashboard for home server usage.
 To run `dash`, you can use the following `docker-compose.yml` file.
 ```yaml
 ---
-version: "3.8"
-
 services:
   dash:
     image: ghcr.io/dmptrluke/dash:latest
@@ -63,14 +61,14 @@ Add a `groups` field to any app entry with a list of group names that are allowe
   "groups": ["media-team", "admins"]
 }
 ```
-
-This project was derived from [jeroenpardon/sui](https://github.com/jeroenpardon/sui).
+ 
+This project was originally derived from [jeroenpardon/sui](https://github.com/jeroenpardon/sui).
 
 ## License
 
 This software is released under the MIT license.
 ```
-Copyright (c) 2020-2023 Luke Rogers
+Copyright (c) 2020-2026 Luke Rogers
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
