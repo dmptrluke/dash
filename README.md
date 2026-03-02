@@ -17,7 +17,7 @@ services:
       - ./apps.json:/config/apps.json
 ```
 ## Configuration 
-`dash` is configured using a simple `apps.json` file. An example is included below. Modify the file, and mount it into your container as `/config/apps.json`.
+`dash` is configured using a simple `apps.json` file. An example is included below. Modify the file, and mount it into your container as `/config/apps.json`. Any icon from [iconify](https://icon-sets.iconify.design/) can be used.
 ```json
 {
   "Watch": [
@@ -31,8 +31,7 @@ services:
       "name": "Jellyfin",
       "icon": "cbi:jellyfin",
       "description": "Movies and TV",
-      "url": "https://jf.example.com/",
-      "groups": ["media-team"]
+      "url": "https://jf.example.com/"
     }
   ],
   "Home": [
@@ -55,14 +54,14 @@ Add a `groups` field to any app entry with a list of group names that are allowe
 ```json
 {
   "name": "Jellyfin",
-  "icon": "custom-jellyfin",
+  "icon": "cbi:jellyfin",
   "description": "Movies and TV",
   "url": "https://jf.example.com/",
-  "groups": ["media-team", "admins"]
+  "groups": ["media", "admins"]
 }
 ```
  
-This project was originally derived from [jeroenpardon/sui](https://github.com/jeroenpardon/sui).
+This projects user interface was originally derived from [jeroenpardon/sui](https://github.com/jeroenpardon/sui).
 
 ## License
 
