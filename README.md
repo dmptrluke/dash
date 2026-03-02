@@ -33,7 +33,8 @@ services:
       "name": "Jellyfin",
       "icon": "custom-jellyfin",
       "description": "Movies and TV",
-      "url": "https://jf.example.com/"
+      "url": "https://jf.example.com/",
+      "groups": ["media-team"]
     }
   ],
   "Home": [
@@ -44,6 +45,22 @@ services:
       "url": "https://homeassistant.example.com/"
     }
   ]
+}
+```
+
+### Group-based visibility
+
+`dash` supports hiding apps based on the user's groups, as provided by [authentik](https://goauthentik.io/) via the `X-authentik-groups` header.
+
+Add a `groups` field to any app entry with a list of group names that are allowed to see that app. Apps without a `groups` field are visible to everyone. If the `X-authentik-groups` header is missing, only apps with no required groups are shown. If all apps in a section are hidden, the section itself is also hidden.
+
+```json
+{
+  "name": "Jellyfin",
+  "icon": "custom-jellyfin",
+  "description": "Movies and TV",
+  "url": "https://jf.example.com/",
+  "groups": ["media-team", "admins"]
 }
 ```
 
