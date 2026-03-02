@@ -25,6 +25,12 @@ async def homepage(request):
     template = "index.html"
 
     user = request.headers.get('X-Authentik-Name', None)
+    groups_header = request.headers.get('X-Authentik-Groups', None)
+
+    if groups_header is not None:
+        user_groups = set(groups_header.split('|'))
+    else:
+        user_groups = None
 
     now = datetime.now()
 
@@ -45,10 +51,19 @@ async def homepage(request):
 
     greeting += '!'
 
+    visible_apps = {}
+    for category, contents in app_list.items():
+        filtered = [
+            app for app in contents
+            if not app.get('groups') or (user_groups is not None and user_groups & set(app['groups']))
+        ]
+        if filtered:
+            visible_apps[category] = filtered
+
     context = {
         "request": request,
         "greeting": greeting,
-        "apps": app_list,
+        "apps": visible_apps,
         "user": user,
         "now": now
     }
