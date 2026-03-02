@@ -1,5 +1,5 @@
 FROM python:3.13-slim
-ENV PYTHONUNBUFFERED 1
+ENV PYTHONUNBUFFERED=1
 
 # install CURL
 RUN apt-get update && apt-get install -y --no-install-recommends curl && rm -rf /var/lib/apt/lists/*
@@ -26,5 +26,5 @@ HEALTHCHECK CMD curl -sSf http://localhost:8000/healthcheck || exit 1
 
 ENV APPS_FILE /config/apps.json
 
-CMD ["uvicorn", "--host=0.0.0.0", "--port=8000", "main:app"]
 EXPOSE 8000/tcp
+CMD ["uvicorn", "--host=0.0.0.0", "--port=8000", "main:app"]

@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>dash</title>
+    <title>{{ title }}</title>
     <link rel="stylesheet" href="./static/style.css">
-    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@2/dist/iconify-icon.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@3.0.2/dist/iconify-icon.min.js" integrity="sha256-Am/FVmljwtoGse/9sLaiw+q1O2G65SznGIbU3ErcSQw=" crossorigin="anonymous"></script>
 </head>
 <body>
     <main id="container">
@@ -27,7 +27,7 @@
             <h2 class="category-title">{{ category }}</h2>
             <div class="apps-grid">
                 {% for app in contents %}
-                <a href="{{ app.url }}" class="app-card" data-name="{{ app.name | lower }}" data-desc="{{ app.description | lower }}">
+                <a href="{{ app.url }}" rel="noopener noreferrer" class="app-card" data-name="{{ app.name | lower }}" data-desc="{{ app.description | lower }}">
                     <iconify-icon class="app-icon" icon="{{ app.icon }}"></iconify-icon>
                     <div class="app-info">
                         <span class="app-name">{{ app.name }}</span>
@@ -41,6 +41,6 @@
         </div>
     </main>
 
-    <script src="./static/script.js"></script>
+    <script src="./static/script.js" defer></script>
 </body>
 </html>

@@ -23,13 +23,13 @@ services:
   "Watch": [
     {
       "name": "Plex",
-      "icon": "mdi-plex",
+      "icon": "mdi:plex",
       "description": "Movies and TV",
       "url": "https://plex.example.com/"
     },
     {
       "name": "Jellyfin",
-      "icon": "custom-jellyfin",
+      "icon": "cbi:jellyfin",
       "description": "Movies and TV",
       "url": "https://jf.example.com/",
       "groups": ["media-team"]
@@ -38,7 +38,7 @@ services:
   "Home": [
     {
       "name": "Home Assistant",
-      "icon": "mdi-home-assistant",
+      "icon": "mdi:home-assistant",
       "description": "Control and Monitor",
       "url": "https://homeassistant.example.com/"
     }

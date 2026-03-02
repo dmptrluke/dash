@@ -1,5 +1,6 @@
 import json
 from datetime import datetime
+from pathlib import Path
 
 import uvicorn
 from starlette.applications import Starlette
@@ -10,14 +11,16 @@ from starlette.templating import Jinja2Templates
 
 config = Config('.env')
 APPS_FILE = config('APPS_FILE')
+DEBUG_ENABLED = config('DEBUG', cast=bool, default=False)
+PAGE_TITLE = config('TITLE', default='Dash')
 
 with open(APPS_FILE) as f:
     app_list = json.load(f)
 
-templates = Jinja2Templates(directory='/code/templates')
+templates = Jinja2Templates(directory=Path(__file__).parent / 'templates')
 
-app = Starlette(debug=True)
-app.mount('/static', StaticFiles(directory='/code/static'), name='static')
+app = Starlette(debug=DEBUG_ENABLED)
+app.mount('/static', StaticFiles(directory=Path(__file__).parent / 'static'), name='static')
 
 
 @app.route('/')
@@ -54,9 +57,9 @@ async def homepage(request):
     visible_apps = {}
     for category, contents in app_list.items():
         filtered = [
-            app for app in contents
-            if not app.get('groups')
-            or set(map(str.casefold, user_groups)) & set(map(str.casefold, app['groups']))
+            entry for entry in contents
+            if not entry.get('groups')
+            or set(map(str.casefold, user_groups)) & set(map(str.casefold, entry['groups']))
         ]
         if filtered:
             visible_apps[category] = filtered
@@ -64,6 +67,7 @@ async def homepage(request):
     context = {
         "request": request,
         "greeting": greeting,
+        "title": PAGE_TITLE,
         "apps": visible_apps,
         "user": user,
         "now": now
