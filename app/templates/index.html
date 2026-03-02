@@ -28,7 +28,7 @@
             <div class="apps-grid">
                 {% for app in contents %}
                 <a href="{{ app.url }}" rel="noopener noreferrer" class="app-card" data-name="{{ app.name | lower }}" data-desc="{{ app.description | lower }}">
-                    <iconify-icon class="app-icon" icon="{{ app.icon }}"></iconify-icon>
+                    <iconify-icon class="app-icon" icon="{{ app.icon }}" noobserver></iconify-icon>
                     <div class="app-info">
                         <span class="app-name">{{ app.name }}</span>
                         <span class="app-desc">{{ app.description }}</span>
