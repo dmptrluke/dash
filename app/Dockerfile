@@ -22,8 +22,7 @@ COPY . ./
 USER abc:abc
 
 # set up healthcheck, environment variable, and run the app
-HEALTHCHECK --interval=1m --timeout=5s --retries=3 \
-  CMD curl -sSf http://localhost:8000/healthcheck || exit 1
+HEALTHCHECK CMD curl -sSf http://localhost:8000/healthcheck || exit 1
 
 ENV APPS_FILE /config/apps.json
 
