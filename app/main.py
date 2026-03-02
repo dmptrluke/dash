@@ -56,7 +56,7 @@ async def homepage(request):
         filtered = [
             app for app in contents
             if not app.get('groups')
-            or any(x.casefold() in user_groups for x.casefold() in app['groups'])
+            or set(map(str.casefold, user_groups)) & set(map(str.casefold, app['groups']))
         ]
         if filtered:
             visible_apps[category] = filtered
