@@ -316,7 +316,7 @@ iconify-icon {
     }
 
     .apps-grid,
-    #search-results {
+    #apps-search {
         grid-template-columns: 1fr;
     }
 
