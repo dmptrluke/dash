@@ -28,7 +28,6 @@ with open(APPS_FILE) as f:
 templates = Jinja2Templates(directory=Path(__file__).parent / 'templates')
 
 app = Starlette(debug=DEBUG_ENABLED)
-app.mount('/static', StaticFiles(directory=Path(__file__).parent / 'static'), name='static')
 
 
 @app.route('/')
@@ -91,6 +90,10 @@ async def homepage(request):
 @app.route('/healthcheck')
 async def healthcheck(request):
     return PlainTextResponse('Hello, world!')
+
+
+app.mount('/static', StaticFiles(directory=Path(__file__).parent / 'static'), name='static')
+app.mount('/', StaticFiles(directory=Path(__file__).parent / 'assets'), name='assets')
 
 
 if __name__ == "__main__":
