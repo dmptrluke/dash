@@ -1,8 +1,8 @@
 {
   "private": true,
   "scripts": {
-    "build": "esbuild app/src/main.ts --bundle --minify --outdir=app/static --entry-names=bundle --format=iife --target=es2020",
-    "dev": "esbuild app/src/main.ts --bundle --outdir=app/static --entry-names=bundle --format=iife --target=es2020 --watch"
+    "build": "esbuild app/src/main.ts --bundle --minify --outdir=app/static --entry-names=bundle --format=iife --target=es2020 --loader:.woff2=file --loader:.woff=file",
+    "dev": "esbuild app/src/main.ts --bundle --outdir=app/static --entry-names=bundle --format=iife --target=es2020 --loader:.woff2=file --loader:.woff=file --watch"
   },
   "devDependencies": {
     "esbuild": "^0.27.3"
@@ -11,6 +11,7 @@
     "node": ">=22"
   },
   "dependencies": {
+    "@fontsource-variable/inter": "^5.2.8",
     "fuse.js": "^7.1.0",
     "iconify-icon": "^3.0.2"
   }

@@ -1,5 +1,6 @@
 // Styles
 import './style.css';
+import '@fontsource-variable/inter';
 import 'iconify-icon';
 
 import Fuse from 'fuse.js';

@@ -20,6 +20,7 @@ config = Config('.env')
 APPS_FILE = config('APPS_FILE')
 DEBUG_ENABLED = config('DEBUG', cast=bool, default=False)
 PAGE_TITLE = config('TITLE', default='Dash')
+FONT_FAMILY = config('FONT_FAMILY', default=None)
 
 with open(APPS_FILE) as f:
     app_list = json.load(f)
@@ -81,7 +82,8 @@ async def homepage(request):
         "title": PAGE_TITLE,
         "apps": visible_apps,
         "user": user,
-        "now": now
+        "now": now,
+        "font_family": FONT_FAMILY,
     }
     return templates.TemplateResponse(template, context)
 
