@@ -3,6 +3,12 @@ import re
 from datetime import datetime
 from pathlib import Path
 
+CATEGORY_COLORS = [
+    '#a371f7', '#fb8500', '#00b4d8', '#06ffa5', '#ff006e',
+    '#ffd60a', '#735ffe', '#ffb703', '#8338ec', '#ff3a44',
+    '#00d9ff', '#ff9500', '#ff447a', '#00f264', '#00e5ff',
+]
+
 import uvicorn
 from starlette.applications import Starlette
 from starlette.config import Config
@@ -55,15 +61,19 @@ async def homepage(request):
 
     greeting += '!'
 
-    visible_apps = {}
-    for category, contents in app_list.items():
+    visible_apps = []
+    for i, (category, contents) in enumerate(app_list.items()):
         filtered = [
             entry for entry in contents
             if not entry.get('groups')
             or set(map(str.casefold, user_groups)) & set(map(str.casefold, entry['groups']))
         ]
         if filtered:
-            visible_apps[category] = filtered
+            visible_apps.append({
+                'name':    category,
+                'color':   CATEGORY_COLORS[i % len(CATEGORY_COLORS)],
+                'entries': filtered,
+            })
 
     context = {
         "request": request,

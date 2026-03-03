@@ -20,17 +20,19 @@
             <input type="text" id="search-input" placeholder="Filter apps…" autocomplete="off" aria-label="Filter apps">
         </div>
 
-        <div id="category-container">
-        {% for category, contents in apps.items() %}
-        <section class="category" data-category="{{ category }}">
-            <h2 class="category-title">{{ category }}</h2>
+        
+        <div id="apps-grouped">
+        {% for section in apps %}
+        <section class="category" style="--cat-color: {{ section.color }}" data-category="{{ section.name }}">
+            <h2 class="category-title">{{ section.name }}</h2>
             <div class="apps-grid">
-                {% for app in contents %}
-                <a href="{{ app.url }}" rel="noopener noreferrer" class="app-card" data-name="{{ app.name | lower }}" data-desc="{{ app.description | lower }}">
+                {% for app in section.entries %}
+                <a href="{{ app.url }}" rel="noopener noreferrer" class="app-card" style="--cat-color: {{ section.color }}" data-name="{{ app.name | lower }}" data-desc="{{ app.description | lower }}">
                     <iconify-icon class="app-icon" icon="{{ app.icon }}" noobserver></iconify-icon>
                     <div class="app-info">
                         <span class="app-name">{{ app.name }}</span>
                         <span class="app-desc">{{ app.description }}</span>
+                        <span class="cat-badge">{{ section.name }}</span>
                     </div>
                 </a>
                 {% endfor %}
@@ -39,6 +41,7 @@
         {% endfor %}
         </div>
 
+        <div id="apps-search" hidden></div>
         <p id="search-error" hidden>No matching apps found.</p>
     </main>
 
