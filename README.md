@@ -45,11 +45,11 @@ services:
 }
 ```
 
-### Group-based visibility
+### Advanced Features
 
-`dash` supports hiding apps based on the user's groups, as provided by [authentik](https://goauthentik.io/) via the `X-authentik-groups` header.
+`dash` supports hiding apps based on the user's groups, as provided by [authentik](https://goauthentik.io/) or similar apps via the 'remote-groups` or `X-authentik-groups` headers.
 
-Add a `groups` field to any app entry with a list of group names that are allowed to see that app. Apps without a `groups` field are visible to everyone. If the `X-authentik-groups` header is missing, only apps with no required groups are shown. If all apps in a section are hidden, the section itself is also hidden.
+Add a `groups` field to any app entry with a list of group names that are allowed to see that app. Apps without a `groups` field are visible to everyone. If no groups header is found, only apps with no required groups are shown. If all apps in a section are hidden, the section itself is also hidden.
 
 ```json
 {
