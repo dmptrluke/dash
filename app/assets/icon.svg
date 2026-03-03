@@ -3,7 +3,7 @@
    viewBox="0 0 512 512"
    version="1.1"
    id="svg41"
-   sodipodi:docname="icon_simple.svg"
+   sodipodi:docname="simple.svg"
    inkscape:export-filename="icon.png"
    inkscape:export-xdpi="96"
    inkscape:export-ydpi="96"
@@ -32,7 +32,6 @@
      inkscape:window-y="478"
      inkscape:window-maximized="0"
      inkscape:current-layer="svg41" />
-  <!-- Background -->
   <rect
      width="512"
      height="512"
@@ -114,8 +113,4 @@
      fill="#06ffa5"
      id="rect9"
      style="stroke-width:4.89265" />
-  <!-- Section 1 — purple -->
-  <!-- Section 2 — orange -->
-  <!-- Section 3 — teal -->
-  <!-- Section 4 — green (clipped naturally at bottom padding) -->
 </svg>
