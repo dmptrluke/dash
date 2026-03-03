@@ -1,5 +1,8 @@
 # dash
-A sweet and simple Docker dashboard for home server usage.
+A sweet and simple Docker dashboard for home server usage, with smart search! (press `/` to focus, search, then press enter)
+
+
+![dash](https://github.com/user-attachments/assets/b5ce86fe-d513-4e78-8b30-2c1500b45e7a)
 
 To run `dash`, you can use the following `docker-compose.yml` file.
 ```yaml
