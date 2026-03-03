@@ -1,3 +1,5 @@
+<img src="app/assets/icon.svg" width="128" alt="dash">
+
 # dash
 A sweet and simple Docker dashboard for home server usage, with smart search! (press `/` to focus, search, then press enter)
 
