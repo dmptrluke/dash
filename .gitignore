@@ -3,3 +3,9 @@ node_modules/
 app/static/
 .dockerignore
 *.code-workspace
+
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/

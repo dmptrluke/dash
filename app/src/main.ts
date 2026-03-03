@@ -43,13 +43,24 @@ const fuse = new Fuse(items, {
     minMatchCharLength: 1,
 });
 
-const searchInput = document.getElementById('search-input') as HTMLInputElement;
-const searchError = document.getElementById('search-error') as HTMLElement;
-const appsGrouped = document.getElementById('apps-grouped') as HTMLElement;
-const appsSearch  = document.getElementById('apps-search')  as HTMLElement;
+// Get DOM elements with proper null checks
+const searchInput = document.getElementById('search-input');
+const searchError = document.getElementById('search-error');
+const appsGrouped = document.getElementById('apps-grouped');
+const appsSearch  = document.getElementById('apps-search');
+
+if (!searchInput || !searchError || !appsGrouped || !appsSearch) {
+    console.error('Required DOM elements not found. Search functionality will not work.');
+    throw new Error('Missing required DOM elements for search');
+}
+
+// Type guard to ensure we have an HTMLInputElement
+if (!(searchInput instanceof HTMLInputElement)) {
+    throw new Error('search-input must be an input element');
+}
 
 /** Empty the search panel and restore the grouped category layout. */
-const clearSearch = () => {
+const clearSearch = (): void => {
     appsSearch.replaceChildren();
     appsSearch.hidden  = true;
     appsGrouped.hidden = false;
@@ -58,7 +69,7 @@ const clearSearch = () => {
 };
 
 /** Run a Fuse query and populate #apps-search with relevance-ranked card clones. */
-const applySearch = (q: string) => {
+const applySearch = (q: string): void => {
     if (!q) { clearSearch(); return; }
 
     const results = fuse.search(q);
@@ -66,7 +77,7 @@ const applySearch = (q: string) => {
     // cloneNode(true) copies the full subtree (icon, name, desc, badge).
     // body.is-searching makes .cat-badge visible via CSS so users can see
     // which category each result belongs to without category headers.
-    appsSearch.replaceChildren(...results.map(r => r.item.el.cloneNode(true)));
+    appsSearch.replaceChildren(...results.map(r => r.item.el.cloneNode(true) as Node));
 
     const anyMatched = results.length > 0;
     appsSearch.hidden  = !anyMatched;
@@ -77,7 +88,7 @@ const applySearch = (q: string) => {
 
 searchInput.addEventListener('input', () => applySearch(searchInput.value.trim()));
 
-searchInput.addEventListener('keydown', e => {
+searchInput.addEventListener('keydown', (e: KeyboardEvent) => {
     if (e.key === 'Escape') {
         searchInput.value = '';
         clearSearch();
@@ -86,19 +97,21 @@ searchInput.addEventListener('keydown', e => {
     // Enter opens the top-ranked result directly.
     if (e.key === 'Enter' && document.body.classList.contains('is-searching')) {
         const first = appsSearch.querySelector<HTMLAnchorElement>('.app-card');
-        if (first) first.click();
+        if (first) {
+            first.click();
+        }
     }
 });
 
 // Press / from anywhere on the page to jump to the search box.
-document.addEventListener('keydown', e => {
+document.addEventListener('keydown', (e: KeyboardEvent) => {
     if (e.key !== '/') return;
     if (document.activeElement === searchInput) return;
     e.preventDefault();
     searchInput.focus();
 });
 
-// When running as an installed PWA (standalone display mode), open all app links in a new window 
+// When running as an installed PWA (standalone display mode), open all app links in a new window
 if (window.matchMedia('(display-mode: standalone)').matches) {
     document.querySelectorAll<HTMLAnchorElement>('.app-card').forEach(a => {
         a.target = '_blank';
@@ -107,7 +120,7 @@ if (window.matchMedia('(display-mode: standalone)').matches) {
 
 // Back/forward cache: browsers may restore the page with stale input state.
 // Reset search so the displayed cards match what's in the input field.
-window.addEventListener('pageshow', e => {
+window.addEventListener('pageshow', (e: PageTransitionEvent) => {
     if (e.persisted) {
         searchInput.value = '';
         clearSearch();
