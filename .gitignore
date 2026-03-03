@@ -1,6 +1,5 @@
-*.env
-*.json
-.idea/
-.venv/
-.vscode/
+# Ignore node modules and static files
+node_modules/
+app/static/
+.dockerignore
 *.code-workspace

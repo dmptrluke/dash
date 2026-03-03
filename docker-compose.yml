@@ -3,9 +3,7 @@
 services:
   web:
     image: ghcr.io/dmptrluke/dash:latest
-    build:
-      context: ./app
-      dockerfile: ./Dockerfile
+    build: .
     ports:
       - 8000:8000
     volumes:

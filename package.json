@@ -1,0 +1,17 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "esbuild app/src/main.ts --bundle --minify --outdir=app/static --entry-names=bundle --format=iife --target=es2020",
+    "dev": "esbuild app/src/main.ts --bundle --outdir=app/static --entry-names=bundle --format=iife --target=es2020 --watch"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.0"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "fuse.js": "^7.1.0",
+    "iconify-icon": "^3.0.2"
+  }
+}
