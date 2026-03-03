@@ -1,4 +1,5 @@
 import json
+import re
 from datetime import datetime
 from pathlib import Path
 
@@ -28,10 +29,10 @@ async def homepage(request):
     template = "index.html"
 
     user = request.headers.get('remote-user', None) or request.headers.get('X-Authentik-Name', None)
-    groups_header = request.headers.get('X-Authentik-Groups', None)
+    groups_header = request.headers.get('remote-groups', None) or request.headers.get('X-Authentik-Groups', None)
 
     if groups_header:
-        user_groups = groups_header.split('|')
+        user_groups = re.split('\||,|\*|\n', groups_header)
     else:
         user_groups = []
 
