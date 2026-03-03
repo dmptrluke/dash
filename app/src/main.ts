@@ -98,6 +98,13 @@ document.addEventListener('keydown', e => {
     searchInput.focus();
 });
 
+// When running as an installed PWA (standalone display mode), open all app links in a new window 
+if (window.matchMedia('(display-mode: standalone)').matches) {
+    document.querySelectorAll<HTMLAnchorElement>('.app-card').forEach(a => {
+        a.target = '_blank';
+    });
+}
+
 // Back/forward cache: browsers may restore the page with stale input state.
 // Reset search so the displayed cards match what's in the input field.
 window.addEventListener('pageshow', e => {
