@@ -13,7 +13,7 @@ services:
   dash:
     image: ghcr.io/dmptrluke/dash:latest
     container_name: dash
-    restart: always
+    restart: unless-stopped
     environment:
       - TZ=Pacific/Auckland
     ports:
