@@ -5,18 +5,11 @@ import 'iconify-icon';
 
 import Fuse from 'fuse.js';
 
-// Two-panel search architecture:
-//   #apps-grouped:  the normal category layout; never modified by search
-//   #apps-search:   a flat grid shown only during active search
-//
 // When a query is typed, Fuse returns results sorted by relevance. We clone
 // the matching cards (in that order) into #apps-search and hide #apps-grouped.
 // On clear, #apps-search is emptied and #apps-grouped is shown again.
-// Using clones means the source cards are always in their original position,
-// making restore trivial (no tracking of original parents needed).
 
-// Search index — built once from the server-rendered DOM.
-// category is read from the nearest ancestor .category[data-category].
+// Search index
 interface AppCard {
     el:       HTMLElement;
     name:     string;
@@ -64,14 +57,15 @@ const applySearch = (q: string) => {
     const results = fuse.search(q);
 
     // cloneNode(true) copies the full subtree (icon, name, desc, badge).
-    // body.is-searching makes .cat-badge visible via CSS so users can see
-    // which category each result belongs to without category headers.
     appsSearch.replaceChildren(...results.map(r => r.item.el.cloneNode(true)));
 
     const anyMatched = results.length > 0;
     appsSearch.hidden  = !anyMatched;
     appsGrouped.hidden = true;
     searchError.hidden = anyMatched;
+
+    // body.is-searching makes .cat-badge visible via CSS so users can see
+    // which category each result belongs to without category headers.
     document.body.classList.add('is-searching');
 };
 
@@ -98,7 +92,8 @@ document.addEventListener('keydown', e => {
     searchInput.focus();
 });
 
-// When running as an installed PWA (standalone display mode), open all app links in a new window 
+// When running as an installed PWA (standalone display mode), 
+// attempt to open all app links in a new window 
 if (window.matchMedia('(display-mode: standalone)').matches) {
     document.querySelectorAll<HTMLAnchorElement>('.app-card').forEach(a => {
         a.target = '_blank';
