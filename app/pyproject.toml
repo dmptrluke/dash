@@ -1,0 +1,35 @@
+[project]
+name = "dash"
+version = "1.10.0"
+requires-python = ">=3.14"
+dependencies = [
+    "uvicorn~=0.41.0",
+    "starlette~=0.52.1",
+    "aiofiles~=25.1.0",
+    "jinja2~=3.1.6",
+]
+
+[tool.ruff]
+target-version = "py314"
+line-length = 120
+
+[tool.ruff.lint]
+select = [
+    "E", "W",    # pycodestyle
+    "F",         # pyflakes
+    "I",         # isort
+    "UP",        # pyupgrade
+    "A",         # flake8-builtins
+    "B",         # flake8-bugbear
+    "C4",        # flake8-comprehensions
+    "SIM",       # flake8-simplify
+    "RUF",       # ruff-specific
+    "PIE",       # flake8-pie
+]
+ignore = [
+    "SIM103",  # return condition directly
+    "SIM108",  # ternary operator
+]
+
+[tool.ruff.format]
+quote-style = "single"

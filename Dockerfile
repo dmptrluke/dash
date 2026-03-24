@@ -1,39 +1,45 @@
-# Stage 1: Build frontend assets
-FROM node:22-alpine AS frontend
+# Assets
+
+FROM node:22-slim AS assets
 WORKDIR /build
 COPY package.json package-lock.json ./
-RUN npm ci
+RUN --mount=type=cache,target=/root/.npm \
+    npm ci
 COPY . .
 RUN npm run build
 
-# Stage 2: Python application
+# Application
+
 FROM python:3.14-slim
-ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
 
-# install CURL
-RUN apt-get update && apt-get install -y --no-install-recommends curl && rm -rf /var/lib/apt/lists/*
+WORKDIR /code
 
-# add a user/group for our app to run under
+COPY --from=ghcr.io/astral-sh/uv:0.6 /uv /usr/local/bin/uv
+
+RUN --mount=type=cache,target=/var/lib/apt/lists \
+    --mount=type=cache,target=/var/cache/apt \
+    apt-get update \
+    && apt-get install -y --no-install-recommends curl
+
 RUN groupadd -r abc -g 1000 && useradd --no-log-init -u 1000 -r -g abc abc
 
-# set work directory, create config folder
-WORKDIR /code
 RUN mkdir /config && chown abc:abc /config
 
-# copy requirements file and install requirements
-COPY app/requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+COPY app/pyproject.toml app/uv.lock ./
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv sync --frozen --no-install-project --no-dev
 
-# copy the rest of app code
+ENV PATH="/code/.venv/bin:$PATH"
+
+RUN rm /usr/local/bin/uv
+
 COPY app/ ./
+COPY --from=assets /build/app/static/ ./static/
 
-# copy all bundled static assets from the frontend stage
-COPY --from=frontend /build/app/static/ ./static/
-
-# drop permissions, nothing beyond this point needs root powers
 USER abc:abc
 
-# set up healthcheck, environment variable, and run the app
 HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --start-interval=2s --retries=2 \
     CMD curl -sf http://localhost:8000/healthcheck || exit 1
 

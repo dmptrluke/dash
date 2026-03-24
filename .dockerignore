@@ -1,6 +1,9 @@
-node_modules/
-.git/
-.venv/
-app/static/
-**/__pycache__/
-**/*.pyc
+node_modules
+.git
+.github
+.venv
+.ruff_cache
+__pycache__
+*.pyc
+*.code-workspace
+app/static
