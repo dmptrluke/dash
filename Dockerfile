@@ -18,10 +18,9 @@ WORKDIR /code
 
 COPY --from=ghcr.io/astral-sh/uv:0.6 /uv /usr/local/bin/uv
 
-RUN --mount=type=cache,target=/var/lib/apt/lists \
-    --mount=type=cache,target=/var/cache/apt \
-    apt-get update \
-    && apt-get install -y --no-install-recommends curl
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends curl \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN groupadd -r abc -g 1000 && useradd --no-log-init -u 1000 -r -g abc abc
 
