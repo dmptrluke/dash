@@ -34,7 +34,7 @@ DEBUG_ENABLED = config('DEBUG', cast=bool, default=False)
 PAGE_TITLE = config('TITLE', default='Dash')
 FONT_FAMILY = config('FONT_FAMILY', default=None)
 
-with open(APPS_FILE) as f:
+with Path(APPS_FILE).open() as f:
     app_list = json.load(f)
 
 templates = Jinja2Templates(directory=Path(__file__).parent / 'templates')
