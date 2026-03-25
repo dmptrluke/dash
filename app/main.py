@@ -54,7 +54,7 @@ async def homepage(request):
     else:
         user_groups = []
 
-    now = datetime.now()
+    now = datetime.now()  # noqa: DTZ005
 
     if now.hour < 5:
         greeting = 'Good night'
@@ -111,4 +111,4 @@ app.mount('/', StaticFiles(directory=Path(__file__).parent / 'assets'), name='as
 
 
 if __name__ == '__main__':
-    uvicorn.run(app, host='0.0.0.0', port=8000)
+    uvicorn.run(app, host='0.0.0.0', port=8000)  # noqa: S104
