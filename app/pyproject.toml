@@ -3,7 +3,7 @@ name = "dash"
 version = "1.10.0"
 requires-python = ">=3.14"
 dependencies = [
-    "uvicorn~=0.41.0",
+    "uvicorn~=0.42.0",
     "starlette~=0.52.1",
     "aiofiles~=25.1.0",
     "jinja2~=3.1.6",
