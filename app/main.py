@@ -7,6 +7,7 @@ import uvicorn
 from starlette.applications import Starlette
 from starlette.config import Config
 from starlette.responses import PlainTextResponse
+from starlette.routing import Route
 from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
 
@@ -39,10 +40,6 @@ with Path(APPS_FILE).open() as f:
 
 templates = Jinja2Templates(directory=Path(__file__).parent / 'templates')
 
-app = Starlette(debug=DEBUG_ENABLED)
-
-
-@app.route('/')
 async def homepage(request):
     template = 'index.html'
 
@@ -98,14 +95,20 @@ async def homepage(request):
         'now': now,
         'font_family': FONT_FAMILY,
     }
-    return templates.TemplateResponse(template, context)
+    return templates.TemplateResponse(request, template, context)
 
 
-@app.route('/healthcheck')
 async def healthcheck(request):
     return PlainTextResponse('Hello, world!')
 
 
+app = Starlette(
+    debug=DEBUG_ENABLED,
+    routes=[
+        Route('/', homepage),
+        Route('/healthcheck', healthcheck),
+    ],
+)
 app.mount('/static', StaticFiles(directory=Path(__file__).parent / 'static'), name='static')
 app.mount('/', StaticFiles(directory=Path(__file__).parent / 'assets'), name='assets')
 
