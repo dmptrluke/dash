@@ -40,6 +40,7 @@ with Path(APPS_FILE).open() as f:
 
 templates = Jinja2Templates(directory=Path(__file__).parent / 'templates')
 
+
 async def homepage(request):
     template = 'index.html'
 
