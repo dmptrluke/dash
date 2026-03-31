@@ -82,5 +82,7 @@ jobs:
           context: .
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          provenance: true
+          sbom: true
           cache-from: type=registry,ref=ghcr.io/dmptrluke/dash:master
           cache-to: type=inline
